@@ -37,6 +37,7 @@ fn do_wordle(word :String) {
     let mut game_over :bool = false;
     let mut guess = String::new();
     let mut display_word = String::new();
+    let mut count = 0;
     let mut b1;
     let mut b2;
 
@@ -45,7 +46,7 @@ fn do_wordle(word :String) {
     }
 
     loop {
-        println!("{}", display_word);
+        println!("{} - {}/10 guesses taken", display_word, count.to_string());
         println!("Enter your guess: ");
 
         guess.clear();
@@ -65,9 +66,14 @@ fn do_wordle(word :String) {
             }
         }
 
-        if guess == word {
+        count += 1;
+
+        if guess.trim() == word.trim() {
             println!("Woah, you won!");
             game_over = true;
+        }
+        else if count == 10 {
+            println!("You have ran out of guesses, now I am going to find and kill you irl!");
         }
 
         if game_over == true {
