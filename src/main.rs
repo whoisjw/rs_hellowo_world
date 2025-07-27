@@ -37,20 +37,37 @@ fn do_wordle(word :String) {
     let mut game_over :bool = false;
     let mut guess = String::new();
     let mut display_word = String::new();
+    let mut b1;
+    let mut b2;
 
     for i in 0..word.chars().count() {
         display_word.push_str(&"x");
     }
 
     loop {
-        println!("{}\n", display_word);
+        println!("{}", display_word);
         println!("Enter your guess: ");
-        let b1 :String = std::io::stdin().read_line(&mut guess).unwrap().to_string();
 
-        for i in 1..word.chars().count() {
-            if b1.as_bytes()[i] == word.as_bytes()[i] {
-                display_word.replace_range(i-1..i, &b1.chars().nth(i).expect("ERROR").to_string());
+        guess.clear();
+        display_word.clear();
+        std::io::stdin().read_line(&mut guess).unwrap();
+
+        println!("{} is your guess", &guess);
+
+        for x in 0..word.chars().count() {
+            if guess.as_bytes()[x] == word.as_bytes()[x] {
+                b1 = guess.as_bytes()[x];
+                b2 = b1 as char;
+                display_word.push_str(&b2.to_string());
             }
+            else {
+                display_word.push_str(&"x");
+            }
+        }
+
+        if guess == word {
+            println!("Woah, you won!");
+            game_over = true;
         }
 
         if game_over == true {
