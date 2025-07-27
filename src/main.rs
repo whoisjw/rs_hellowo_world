@@ -74,6 +74,7 @@ fn do_wordle(word :String) {
         }
         else if count == 10 {
             println!("You have ran out of guesses, now I am going to find and kill you irl!");
+            game_over = true;
         }
 
         if game_over == true {
