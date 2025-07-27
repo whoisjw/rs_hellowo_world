@@ -49,11 +49,17 @@ fn do_wordle(word :String) {
         println!("{} - {}/10 guesses taken", display_word, count.to_string());
         println!("Enter your guess: ");
 
-        guess.clear();
-        display_word.clear();
-        std::io::stdin().read_line(&mut guess).unwrap();
-
-        println!("{} is your guess", &guess);
+        loop{
+            guess.clear();
+            display_word.clear();
+            std::io::stdin().read_line(&mut guess).unwrap();
+            if guess.chars().count() != word.chars().count(){
+                println!("Guess is not the same length as word, try again: ");
+            }
+            else {
+                break;
+            }
+        }
 
         for x in 0..word.chars().count() {
             if guess.as_bytes()[x] == word.as_bytes()[x] {
